@@ -19,50 +19,41 @@ export const colors = {
 export const brushes = [
   {
     name: 'Pastel',
+    value: 'pastel',
     svg: (
       <Svg
         xmlns="http://www.w3.org/2000/svg"
         width={139.419}
         height={18.997}
-        viewBox="0 0 139.419 18.997"
-      >
-        <Rect
-          data-name="Rectangle 12"
-          width={139.419}
-          height={18.997}
-          rx={9.499}
-          fill="#daafff"
-        />
+        viewBox="0 0 139.419 18.997">
+        <Rect data-name="Rectangle 12" width={139.419} height={18.997} rx={9.499} fill="#daafff" />
       </Svg>
     ),
   },
   {
     name: 'Pencil',
-    svg: (
-      <Image style={{ marginEnd: -10 }} source={require('./res/pencil.png')}/>
-    ),
+    value: 'pencil',
+    svg: <Image style={{ marginEnd: -10 }} source={require('./res/pencil.png')} />,
   },
   {
     name: 'Marker',
-    svg: (
-      <Image style={{ marginEnd: -20 }} source={require('./res/marker.png')}/>
-    ),
+    value: 'marker',
+    svg: <Image style={{ marginEnd: -20 }} source={require('./res/marker.png')} />,
   },
   {
     name: 'Airbrush',
-    svg: <Image style={{ marginEnd: -20 }} source={require('./res/air.png')}/>,
+    value: 'airbrush',
+    svg: <Image style={{ marginEnd: -20 }} source={require('./res/air.png')} />,
   },
   {
     name: 'Paintbrush',
-    svg: (
-      <Image style={{ marginEnd: -20 }} source={require('./res/paint.png')}/>
-    ),
+    value: 'paintbrush',
+    svg: <Image style={{ marginEnd: -20 }} source={require('./res/paint.png')} />,
   },
   {
     name: 'Watercolor',
-    svg: (
-      <Image style={{ marginEnd: -10 }} source={require('./res/water.png')}/>
-    ),
+    value: 'watercolor',
+    svg: <Image style={{ marginEnd: -10 }} source={require('./res/water.png')} />,
   },
 ];
 

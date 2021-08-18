@@ -482,7 +482,7 @@ export default function Painting({ navigation, route }) {
         <Box h={imgSize.height} w={imgSize.width}>
           <SignatureScreen
             ref={ref}
-            dataURL={dataURL}
+            dataURL={dataURL ? dataURL : undefined}
             overlaySrc={route.params.imageUrl} //"https://i.ibb.co/hYYc1tg/1-scaled.png" //{route.params.imageUrl}
             overlayWidth={imgSize.width}
             overlayHeight={imgSize.height}

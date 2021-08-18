@@ -1,7 +1,7 @@
 # Adult Coloring App
 
 Can be initialised by running:  
-`yarn`  
+`yarn install`  
 to install the node modules, and  
-`yarn start`  
+`expo start`  
 to start the app

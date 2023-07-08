@@ -94,11 +94,7 @@ export default `
 
   function hexToRgb(hex) {
     var result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
+    return result ? [parseInt(result[1], 16),parseInt(result[2], 16),parseInt(result[3], 16)] : null;
   }
 
   function throttle(fn, wait) {
@@ -379,7 +375,6 @@ export default `
           }
       
           case "pencil": {
-        
             var x = event.clientX;
             var y = event.clientY;
             var point = this._createPoint(x, y);
@@ -391,12 +386,10 @@ export default `
             const yLast = lastPoint.y
             const color = hexToRgb(this.penColor)
             const brushDiameter = this.maxWidth
-            const strokeColor = 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + (0.4 + Math.random() * 0.2) + ')'
+            const strokeColor = 'rgba(' + color.join() +',' + (0.4 + Math.random() * 0.2) + ')'
 
             this._ctx.lineWidth = brushDiameter;
             this._ctx.lineCap = 'round';
-
-            console.log("strokeColor",strokeColor)
             
             this._ctx.strokeStyle = strokeColor;
             this._ctx.beginPath();
@@ -405,16 +398,16 @@ export default `
             this._ctx.stroke();
       
             // Chalk Effect
-		    var length = Math.round(Math.sqrt(Math.pow(x-xLast,2)+Math.pow(y-yLast,2))/(100/brushDiameter));
-		    var xUnit = (x-xLast)/length;
-		    var yUnit = (y-yLast)/length;
-		    for(var i=0; i<length; i++ ){
-                var xCurrent = xLast+(i*xUnit);	
-                var yCurrent = yLast+(i*yUnit);
-                var xRandom = xCurrent+(Math.random()-0.5)*brushDiameter*1.2;			
-                var yRandom = yCurrent+(Math.random()-0.5)*brushDiameter*1.2;
-                this._ctx.clearRect( xRandom, yRandom, Math.random()*2+2, Math.random()+1);
-			}
+            var length = Math.round(Math.sqrt(Math.pow(x-xLast,2)+Math.pow(y-yLast,2))/(100/brushDiameter));
+            var xUnit = (x-xLast)/length;
+            var yUnit = (y-yLast)/length;
+            for(var i=0; i<length; i++ ){
+              var xCurrent = xLast+(i*xUnit);	
+              var yCurrent = yLast+(i*yUnit);
+              var xRandom = xCurrent+(Math.random()-0.5)*brushDiameter*1.2;			
+              var yRandom = yCurrent+(Math.random()-0.5)*brushDiameter*1.2;
+              this._ctx.clearRect( xRandom, yRandom, Math.random()*2+2, Math.random()+1);
+			      }
       
             lastPoints.push({
               time: point.time,
@@ -422,6 +415,48 @@ export default `
               y: point.y
             });
 
+            break;
+          }
+
+          case 'marker': {
+            const x = event.clientX;
+            const y = event.clientY;
+            const point = this._createPoint(x, y);
+            const lastPointGroup = this._data[this._data.length - 1];
+            const lastPoints = lastPointGroup.points;
+            const lastPoint = lastPoints.length > 0 && lastPoints[lastPoints.length - 1];
+        
+            const xLast = lastPoint.x;
+            const yLast = lastPoint.y;
+            const color = hexToRgb(this.penColor);
+            const brushDiameter = this.maxWidth;
+            const strokeColor = 'rgba(' + color.join() + ',' + (0.4 + Math.random() * 0.2) + ')';
+
+            const _size = brushDiameter + 3;
+
+        
+            this._ctx.lineWidth = brushDiameter;
+            this._ctx.lineCap = 'round';
+            this._ctx.lineJoin = 'round';
+
+            const brushLength = (_size / brushDiameter) / 2
+            var lineWidthDiff;
+        
+            for (let i = 0; i < brushLength; i++) {
+              lineWidthDiff = (brushDiameter - 1) * i;
+        
+              this._ctx.globalAlpha = 0.8;
+              this._ctx.moveTo(xLast + lineWidthDiff, yLast + lineWidthDiff);
+              this._ctx.lineTo(x + lineWidthDiff, y + lineWidthDiff);
+              this._ctx.stroke();
+            }
+        
+            lastPoints.push({
+              time: point.time,
+              x: point.x,
+              y: point.y,
+            });
+        
             break;
           }
         }

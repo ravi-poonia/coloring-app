@@ -1,4 +1,4 @@
-export default (script) =>
+export default script =>
   `<!doctype html>
 <html lang="en">
 <head>

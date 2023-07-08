@@ -3,7 +3,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { Box, Button, FlatList, HStack, Icon, Modal, Radio, Text, VStack } from 'native-base';
+import { Box, Button, FlatList, HStack, Icon, Modal, Text, VStack } from 'native-base';
 import { TouchableOpacity, View } from 'react-native';
 import RNSlider from '@react-native-community/slider';
 import { StatusBar } from 'expo-status-bar';
